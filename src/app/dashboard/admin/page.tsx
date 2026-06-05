@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Shield, Coins, User, Package, RotateCcw, Database } from "lucide-react";
 
+import { styles } from "@/lib/styles";
+
 export default function AdminPage() {
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -63,7 +65,7 @@ export default function AdminPage() {
       </div>
 
       {/* Content */}
-      <div className="card">
+      <div className={styles.card}>
         {activeTab === "balance" && <BalanceForm onSubmit={adminAction} loading={loading} />}
         {activeTab === "level" && <LevelForm onSubmit={adminAction} loading={loading} />}
         {activeTab === "items" && <ItemsForm onSubmit={adminAction} loading={loading} />}
@@ -73,7 +75,7 @@ export default function AdminPage() {
 
       {/* Result */}
       {result && (
-        <div className={`card ${result.error ? "border-accent-danger/30" : "border-accent-success/30"}`}>
+        <div className={`${styles.card} ${result.error ? "border-accent-danger/30" : "border-accent-success/30"}`}>
           <p className="text-sm font-medium mb-2">{result.error ? "❌ Error" : "✅ Success"}</p>
           <pre className="text-xs text-gray-300 bg-dark-900 p-3 rounded-lg overflow-auto max-h-60">
             {JSON.stringify(result, null, 2)}
@@ -91,14 +93,14 @@ function BalanceForm({ onSubmit, loading }: { onSubmit: any; loading: boolean })
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-white">💰 Manage Balance</h3>
-      <input className="input-dark" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
-      <select className="input-dark" value={action} onChange={(e) => setAction(e.target.value)}>
+      <input className={styles.inputDark} placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <select className={styles.inputDark} value={action} onChange={(e) => setAction(e.target.value)}>
         <option value="add">Add</option>
         <option value="remove">Remove</option>
         <option value="set">Set</option>
       </select>
-      <input className="input-dark" type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-      <button className="btn-primary" disabled={loading} onClick={() => onSubmit("balance", { userId, action, amount: parseInt(amount) })}>
+      <input className={styles.inputDark} type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+      <button className={styles.btnPrimary} disabled={loading} onClick={() => onSubmit("balance", { userId, action, amount: parseInt(amount) })}>
         {loading ? "Processing..." : "Execute"}
       </button>
     </div>
@@ -111,9 +113,9 @@ function LevelForm({ onSubmit, loading }: { onSubmit: any; loading: boolean }) {
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-white">📈 Set Level</h3>
-      <input className="input-dark" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
-      <input className="input-dark" type="number" placeholder="New Level" value={level} onChange={(e) => setLevel(e.target.value)} />
-      <button className="btn-primary" disabled={loading} onClick={() => onSubmit("level", { userId, level: parseInt(level) })}>
+      <input className={styles.inputDark} placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <input className={styles.inputDark} type="number" placeholder="New Level" value={level} onChange={(e) => setLevel(e.target.value)} />
+      <button className={styles.btnPrimary} disabled={loading} onClick={() => onSubmit("level", { userId, level: parseInt(level) })}>
         {loading ? "Processing..." : "Set Level"}
       </button>
     </div>
@@ -128,14 +130,14 @@ function ItemsForm({ onSubmit, loading }: { onSubmit: any; loading: boolean }) {
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-white">🎒 Give/Remove Items</h3>
-      <input className="input-dark" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
-      <input className="input-dark" placeholder="Item ID (e.g. rod_part, mystery_box)" value={itemId} onChange={(e) => setItemId(e.target.value)} />
-      <select className="input-dark" value={action} onChange={(e) => setAction(e.target.value)}>
+      <input className={styles.inputDark} placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <input className={styles.inputDark} placeholder="Item ID (e.g. rod_part, mystery_box)" value={itemId} onChange={(e) => setItemId(e.target.value)} />
+      <select className={styles.inputDark} value={action} onChange={(e) => setAction(e.target.value)}>
         <option value="give">Give</option>
         <option value="remove">Remove</option>
       </select>
-      <input className="input-dark" type="number" placeholder="Quantity" value={qty} onChange={(e) => setQty(e.target.value)} />
-      <button className="btn-primary" disabled={loading} onClick={() => onSubmit("items", { userId, itemId, action, quantity: parseInt(qty) })}>
+      <input className={styles.inputDark} type="number" placeholder="Quantity" value={qty} onChange={(e) => setQty(e.target.value)} />
+      <button className={styles.btnPrimary} disabled={loading} onClick={() => onSubmit("items", { userId, itemId, action, quantity: parseInt(qty) })}>
         {loading ? "Processing..." : "Execute"}
       </button>
     </div>
@@ -149,15 +151,15 @@ function ResetForm({ onSubmit, loading }: { onSubmit: any; loading: boolean }) {
     <div className="space-y-4">
       <h3 className="font-semibold text-white">⚠️ Reset User Data</h3>
       <p className="text-sm text-red-400">Hati-hati! Aksi ini tidak bisa di-undo.</p>
-      <input className="input-dark" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
-      <select className="input-dark" value={resetType} onChange={(e) => setResetType(e.target.value)}>
+      <input className={styles.inputDark} placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <select className={styles.inputDark} value={resetType} onChange={(e) => setResetType(e.target.value)}>
         <option value="balance">Reset Balance</option>
         <option value="level">Reset Level</option>
         <option value="fish">Reset Fish (inventory + collection)</option>
         <option value="pets">Reset Pets</option>
         <option value="all">⚠️ RESET ALL (hapus semua data)</option>
       </select>
-      <button className="btn-danger" disabled={loading} onClick={() => onSubmit("reset-user", { userId, resetType })}>
+      <button className={styles.btnDanger} disabled={loading} onClick={() => onSubmit("reset-user", { userId, resetType })}>
         {loading ? "Processing..." : "Reset User"}
       </button>
     </div>
@@ -169,8 +171,8 @@ function QueryForm({ onSubmit, loading }: { onSubmit: any; loading: boolean }) {
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-white">🔍 Raw Query (SELECT only)</h3>
-      <textarea className="input-dark h-24 font-mono text-sm" placeholder="SELECT * FROM users LIMIT 10" value={sql} onChange={(e) => setSql(e.target.value)} />
-      <button className="btn-primary" disabled={loading} onClick={() => onSubmit("query", { sql })}>
+      <textarea className={`${styles.inputDark} h-24 font-mono text-sm`} placeholder="SELECT * FROM users LIMIT 10" value={sql} onChange={(e) => setSql(e.target.value)} />
+      <button className={styles.btnPrimary} disabled={loading} onClick={() => onSubmit("query", { sql })}>
         {loading ? "Executing..." : "Run Query"}
       </button>
     </div>

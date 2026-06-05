@@ -3,8 +3,8 @@ import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-dark-gradient flex items-center justify-center p-4">
-      <div className="card max-w-md w-full text-center space-y-8">
+    <div className="min-h-screen bg-dark-900 flex items-center justify-center p-4">
+      <div className="bg-dark-800 border border-dark-600 rounded-xl p-8 shadow-lg max-w-md w-full text-center space-y-8">
         {/* Logo / Title */}
         <div className="space-y-3">
           <div className="text-6xl">🤖</div>

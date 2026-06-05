@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { Settings, Save } from "lucide-react";
 
+import { styles } from "@/lib/styles";
+
 export default function SettingsPage() {
   const [settings, setSettings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -54,12 +56,12 @@ export default function SettingsPage() {
       </div>
 
       {/* Add/Edit Setting */}
-      <div className="card">
+      <div className={styles.card}>
         <h3 className="font-semibold text-white mb-4">Add/Edit Setting</h3>
         <div className="flex gap-3 flex-wrap">
-          <input className="input-dark flex-1 min-w-[200px]" placeholder="Key" value={newKey} onChange={(e) => setNewKey(e.target.value)} />
-          <input className="input-dark flex-1 min-w-[200px]" placeholder="Value" value={newValue} onChange={(e) => setNewValue(e.target.value)} />
-          <button className="btn-primary flex items-center gap-2" onClick={saveSetting} disabled={saving}>
+          <input className={`${styles.inputDark} flex-1 min-w-[200px]`} placeholder="Key" value={newKey} onChange={(e) => setNewKey(e.target.value)} />
+          <input className={`${styles.inputDark} flex-1 min-w-[200px]`} placeholder="Value" value={newValue} onChange={(e) => setNewValue(e.target.value)} />
+          <button className={`${styles.btnPrimary} flex items-center gap-2`} onClick={saveSetting} disabled={saving}>
             <Save size={16} /> {saving ? "..." : "Save"}
           </button>
         </div>
@@ -67,7 +69,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Current Settings */}
-      <div className="card">
+      <div className={styles.card}>
         <h3 className="font-semibold text-white mb-4">Current Settings ({settings.length})</h3>
         {loading ? (
           <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-accent-primary mx-auto"></div>

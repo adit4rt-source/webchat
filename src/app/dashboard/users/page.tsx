@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Search, User } from "lucide-react";
 
+import { styles } from "@/lib/styles";
+
 export default function UsersPage() {
   const [searchId, setSearchId] = useState("");
   const [userData, setUserData] = useState<any>(null);
@@ -37,24 +39,24 @@ export default function UsersPage() {
       {/* Search */}
       <div className="flex gap-3">
         <input
-          className="input-dark flex-1"
+          className={`${styles.inputDark} flex-1`}
           placeholder="Discord User ID (e.g. 1051116479912882316)"
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && searchUser()}
         />
-        <button className="btn-primary flex items-center gap-2" onClick={searchUser} disabled={loading}>
+        <button className={`${styles.btnPrimary} flex items-center gap-2`} onClick={searchUser} disabled={loading}>
           <Search size={16} /> {loading ? "..." : "Search"}
         </button>
       </div>
 
-      {error && <div className="card border-accent-danger/30"><p className="text-red-400">{error}</p></div>}
+      {error && <div className={`${styles.card} border-accent-danger/30`}><p className="text-red-400">{error}</p></div>}
 
       {/* User Data */}
       {userData && (
         <div className="space-y-4">
           {/* Profile Card */}
-          <div className="card">
+          <div className={styles.card}>
             <h3 className="font-semibold text-white text-lg mb-4">👤 Player Profile</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-dark-700 rounded-lg p-3 text-center">
@@ -77,7 +79,7 @@ export default function UsersPage() {
           </div>
 
           {/* Stats */}
-          <div className="card">
+          <div className={styles.card}>
             <h3 className="font-semibold text-white mb-3">📊 Stats</h3>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div className="flex justify-between">
@@ -93,7 +95,7 @@ export default function UsersPage() {
 
           {/* Pets */}
           {userData.pets.length > 0 && (
-            <div className="card">
+            <div className={styles.card}>
               <h3 className="font-semibold text-white mb-3">🐾 Pets ({userData.pets.length})</h3>
               <div className="space-y-2">
                 {userData.pets.map((pet: any, i: number) => (

@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { Users, Server, Fish, Sprout, PawPrint, Trophy, Clock, Coins } from "lucide-react";
 
+import { styles } from "@/lib/styles";
+
 interface BotStats {
   users: number;
   guilds: number;
@@ -59,7 +61,7 @@ export default function DashboardPage() {
 
   if (error) {
     return (
-      <div className="card border-accent-danger/30 bg-red-500/5">
+      <div className={`${styles.card} border-accent-danger/30 bg-red-500/5`}>
         <p className="text-accent-danger font-medium">Error connecting to bot API</p>
         <p className="text-sm text-gray-400 mt-1">{error}</p>
         <p className="text-xs text-gray-500 mt-3">Pastikan bot sedang online dan API server aktif di port 25922.</p>
@@ -95,7 +97,7 @@ export default function DashboardPage() {
         {statCards.map((card) => {
           const Icon = card.icon;
           return (
-            <div key={card.label} className="stat-card">
+            <div key={card.label} className={styles.statCard}>
               <div className="relative z-10 flex items-center justify-between">
                 <div>
                   <p className="text-xs text-gray-500 uppercase tracking-wider">{card.label}</p>
@@ -111,7 +113,7 @@ export default function DashboardPage() {
       {/* Quick Info */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Achievements */}
-        <div className="card">
+        <div className={styles.card}>
           <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
             <Trophy size={18} className="text-yellow-400" /> Achievements Unlocked
           </h3>
@@ -120,7 +122,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Bot Status */}
-        <div className="card">
+        <div className={styles.card}>
           <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
             Bot Status

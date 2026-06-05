@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { Trophy } from "lucide-react";
 
+import { styles } from "@/lib/styles";
+
 const TYPES = [
   { id: "money", label: "💰 Money" },
   { id: "level", label: "📈 Level" },
@@ -51,7 +53,7 @@ export default function LeaderboardPage() {
       </div>
 
       {/* Table */}
-      <div className="card overflow-hidden">
+      <div className={`${styles.card} overflow-hidden`}>
         {loading ? (
           <div className="flex justify-center py-8">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-accent-primary"></div>

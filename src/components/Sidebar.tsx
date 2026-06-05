@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { BarChart3, Users, Settings, Shield, Fish, LogOut, Home, Trophy } from "lucide-react";
+import { Users, Settings, Shield, LogOut, Home, Trophy } from "lucide-react";
+import { styles } from "@/lib/styles";
 
 interface SidebarProps {
   user: { id: string; username: string; avatar: string; isAdmin: boolean; image?: string };
@@ -44,7 +45,7 @@ export default function Sidebar({ user }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`sidebar-link ${isActive ? "active" : ""}`}
+              className={isActive ? styles.sidebarLinkActive : styles.sidebarLink}
             >
               <Icon size={18} />
               <span>{item.label}</span>
