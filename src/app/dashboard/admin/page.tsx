@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Shield, Coins, User, Package, RotateCcw, Database, PawPrint, Fish, Sprout, Flame, BarChart3, Trophy, Swords, Zap } from "lucide-react";
+import { Shield, Coins, User, Package, RotateCcw, Database, PawPrint, Fish, Sprout, Flame, BarChart3, Trophy, Swords, Zap, Lock } from "lucide-react";
 import { styles } from "@/lib/styles";
 import MemberSelector from "@/components/MemberSelector";
 import { useGuild } from "@/lib/GuildContext";
+import { useSession } from "next-auth/react";
 
 interface Catalog {
   items: { id: string; name: string; emoji: string; category: string; price: number }[];
@@ -19,12 +20,26 @@ interface Catalog {
 
 export default function AdminPage() {
   const { selectedGuild } = useGuild();
+  const { data: session } = useSession();
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("balance");
   const [catalog, setCatalog] = useState<Catalog | null>(null);
 
   useEffect(() => { loadCatalog(); }, []);
+
+  // OWNER-ONLY PROTECTION: Block non-owners from accessing this page
+  if (!(session?.user as any)?.isAdmin) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="bg-dark-800 border border-red-500/30 rounded-xl p-8 text-center max-w-md">
+          <Lock size={48} className="text-red-400 mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-white mb-2">Access Denied</h2>
+          <p className="text-sm text-gray-400">Halaman ini hanya bisa diakses oleh <strong className="text-red-400">Bot Owner</strong>. Admin server tidak memiliki akses ke panel ini karena bot bersifat global.</p>
+        </div>
+      </div>
+    );
+  }
 
   async function loadCatalog() {
     try {

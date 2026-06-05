@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
-import { Wrench, Database, Download, RotateCcw, Terminal, AlertTriangle, CheckCircle } from "lucide-react";
+import { Wrench, Database, Download, RotateCcw, Terminal, AlertTriangle, CheckCircle, Lock } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
+import { useSession } from "next-auth/react";
 
 export default function ToolsPage() {
   const { selectedGuild } = useGuild();
@@ -43,6 +44,21 @@ export default function ToolsPage() {
       setMsg("❌ " + e.message);
     }
     setTimeout(() => setMsg(""), 5000);
+  }
+
+  const { data: session } = useSession();
+
+  // OWNER-ONLY PROTECTION
+  if (!(session?.user as any)?.isAdmin) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="bg-dark-800 border border-red-500/30 rounded-xl p-8 text-center max-w-md">
+          <Lock size={48} className="text-red-400 mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-white mb-2">Access Denied</h2>
+          <p className="text-sm text-gray-400">Halaman ini hanya bisa diakses oleh <strong className="text-red-400">Bot Owner</strong>.</p>
+        </div>
+      </div>
+    );
   }
 
   if (!selectedGuild) return <div className={styles.card}><p className="text-gray-400">Select a server from the sidebar.</p></div>;
