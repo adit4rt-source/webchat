@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Gamepad2, Coins, Trophy, Dice1 } from "lucide-react";
 import { styles } from "@/lib/styles";
+import UserCell from "@/components/UserCell";
 
 interface CasinoStats {
   coinflipWins: number;
@@ -66,11 +67,11 @@ export default function CasinoPage() {
             <Coins size={16} className="text-yellow-400" /> Top Slot Winners (Total Winnings)
           </h3>
           <div className="space-y-2">
-            {stats.topGamblers.map((row, i) => (
+            {stats.topGamblers.map((row: any, i) => (
               <div key={i} className="flex items-center justify-between py-2.5 px-3 bg-dark-700/50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-bold text-gray-500 w-6">{["🥇","🥈","🥉"][i] || `${i+1}.`}</span>
-                  <span className="text-xs font-mono text-gray-300">{row.userId}</span>
+                  <UserCell user={row._user} userId={row.userId} />
                 </div>
                 <span className="text-sm font-bold text-yellow-400">{formatNumber(row.total)}</span>
               </div>
@@ -85,11 +86,11 @@ export default function CasinoPage() {
             <Trophy size={16} className="text-blue-400" /> Top Coinflip Players (Wins)
           </h3>
           <div className="space-y-2">
-            {stats.topCoinflip.map((row, i) => (
+            {stats.topCoinflip.map((row: any, i) => (
               <div key={i} className="flex items-center justify-between py-2.5 px-3 bg-dark-700/50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-bold text-gray-500 w-6">{["🥇","🥈","🥉"][i] || `${i+1}.`}</span>
-                  <span className="text-xs font-mono text-gray-300">{row.userId}</span>
+                  <UserCell user={row._user} userId={row.userId} />
                 </div>
                 <span className="text-sm font-bold text-blue-400">{formatNumber(row.wins)} wins</span>
               </div>

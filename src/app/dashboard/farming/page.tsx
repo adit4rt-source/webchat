@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Sprout, Wheat, Sparkles, Leaf, Trophy } from "lucide-react";
 import { styles } from "@/lib/styles";
+import UserCell from "@/components/UserCell";
 
 interface FarmingStats {
   totalHarvests: number;
@@ -66,11 +67,11 @@ export default function FarmingPage() {
           <Trophy size={16} className="text-yellow-400" /> Top Farmers
         </h3>
         <div className="space-y-2">
-          {stats.topFarmers.map((row, i) => (
+          {stats.topFarmers.map((row: any, i) => (
             <div key={i} className="flex items-center justify-between py-2.5 px-3 bg-dark-700/50 rounded-lg">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-bold text-gray-500 w-6">{["🥇","🥈","🥉"][i] || `${i+1}.`}</span>
-                <span className="text-xs font-mono text-gray-300">{row.userId}</span>
+                <UserCell user={row._user} userId={row.userId} />
               </div>
               <span className="text-sm font-bold text-white">{formatNumber(row.total)} harvests</span>
             </div>

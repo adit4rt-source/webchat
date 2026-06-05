@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { PawPrint, Swords, Trophy, Crown, Zap, Shield } from "lucide-react";
 import { styles } from "@/lib/styles";
+import UserCell from "@/components/UserCell";
 
 interface PetStats {
   totalPets: number;
@@ -100,11 +101,11 @@ export default function PetsPage() {
               </tr>
             </thead>
             <tbody>
-              {stats.topPets.map((pet, i) => (
+              {stats.topPets.map((pet: any, i) => (
                 <tr key={i} className="border-b border-dark-700/50 hover:bg-dark-700/30">
                   <td className="py-2.5 pl-2 text-sm">{["🥇","🥈","🥉"][i] || `${i+1}`}</td>
                   <td className="py-2.5 font-medium text-white">{pet.name}</td>
-                  <td className="py-2.5 font-mono text-xs text-gray-400">{pet.userId.substring(0, 10)}...</td>
+                  <td className="py-2.5"><UserCell user={pet._user} userId={pet.userId} /></td>
                   <td className="py-2.5 text-xs text-accent-primary capitalize">{pet.class}</td>
                   <td className="py-2.5 text-xs text-accent-secondary capitalize">{pet.element}</td>
                   <td className="py-2.5 text-right pr-2 font-bold text-white">Lv.{pet.level}</td>

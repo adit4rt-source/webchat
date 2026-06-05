@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Fish, Trophy, Skull, Anchor, MapPin, Cloud } from "lucide-react";
+import { Fish, Trophy, Skull, Anchor, MapPin } from "lucide-react";
 import { styles } from "@/lib/styles";
+import UserCell from "@/components/UserCell";
 
 interface FishingStats {
   totalCaught: number;
@@ -91,11 +92,11 @@ export default function FishingPage() {
             <Fish size={16} className="text-blue-400" /> Top Fishers
           </h3>
           <div className="space-y-2">
-            {stats.topFishers.map((row, i) => (
+            {stats.topFishers.map((row: any, i) => (
               <div key={i} className="flex items-center justify-between py-2 px-3 bg-dark-700/50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-bold text-gray-500 w-6">{["🥇","🥈","🥉"][i] || `${i+1}.`}</span>
-                  <span className="text-xs font-mono text-gray-300">{row.userId}</span>
+                  <UserCell user={row._user} userId={row.userId} />
                 </div>
                 <span className="text-sm font-bold text-white">{formatNumber(row.total)}</span>
               </div>
@@ -110,11 +111,11 @@ export default function FishingPage() {
             <MapPin size={16} className="text-green-400" /> Top Collectors (Pokedex)
           </h3>
           <div className="space-y-2">
-            {stats.topCollectors.map((row, i) => (
+            {stats.topCollectors.map((row: any, i) => (
               <div key={i} className="flex items-center justify-between py-2 px-3 bg-dark-700/50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-bold text-gray-500 w-6">{["🥇","🥈","🥉"][i] || `${i+1}.`}</span>
-                  <span className="text-xs font-mono text-gray-300">{row.userId}</span>
+                  <UserCell user={row._user} userId={row.userId} />
                 </div>
                 <span className="text-sm font-bold text-white">{row.collected}/{stats.totalFishSpecies}</span>
               </div>
