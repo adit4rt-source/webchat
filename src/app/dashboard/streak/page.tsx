@@ -43,11 +43,16 @@ export default function StreakPage() {
   return (
     <div className="space-y-6 max-w-[1400px]">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-          <Flame className="text-orange-400" /> Daily Streak
-        </h1>
-        <p className="text-sm text-gray-500 mt-0.5">View and track daily login streaks for all members</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+            <Flame className="text-orange-400" /> Daily Streak
+          </h1>
+          <p className="text-sm text-gray-500 mt-0.5">View and track daily login streaks for all members</p>
+        </div>
+        <a href="/dashboard/streak/settings" className="px-4 py-2 bg-dark-700 border border-dark-500 rounded-lg text-xs text-gray-300 hover:text-white hover:border-accent-primary/30 transition-all flex items-center gap-2">
+          <ShieldCheck size={14} /> Settings
+        </a>
       </div>
 
       {/* Top Stats */}
