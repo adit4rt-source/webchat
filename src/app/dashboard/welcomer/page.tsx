@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { MessageSquare, Save, Hash, UserCheck, Palette, Image, Mail, Clock, Send } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
+import ChannelSelector from "@/components/ChannelSelector";
+import RoleSelector from "@/components/RoleSelector";
 
 export default function WelcomerPage() {
   const { selectedGuild } = useGuild();
@@ -88,8 +90,8 @@ export default function WelcomerPage() {
           <div className="bg-dark-800 border border-dark-600 rounded-xl p-5 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Welcome Channel (ID)</label>
-                <input className={styles.inputDark} placeholder="Channel ID" value={settings.welcome_channel || ''} onChange={e => update('welcome_channel', e.target.value)} />
+                <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Welcome Channel</label>
+                <ChannelSelector value={settings.welcome_channel || ''} onChange={v => update('welcome_channel', v)} placeholder="Select welcome channel" filter="text" />
               </div>
               <div>
                 <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Palette size={12} /> Embed Color</label>
@@ -151,8 +153,15 @@ export default function WelcomerPage() {
         <div className="bg-dark-800 border border-dark-600 rounded-xl p-5 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><UserCheck size={12} /> Auto-Role IDs (comma-separated)</label>
-              <input className={styles.inputDark} placeholder="123456789,987654321" value={settings.welcome_autorole || ''} onChange={e => update('welcome_autorole', e.target.value)} />
+              <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><UserCheck size={12} /> Auto-Roles</label>
+              <RoleSelector
+                value=""
+                onChange={() => {}}
+                multiple
+                values={(settings.welcome_autorole || '').split(',').filter(Boolean)}
+                onChangeMultiple={(ids) => update('welcome_autorole', ids.join(','))}
+                placeholder="Select roles to assign on join"
+              />
             </div>
             <div>
               <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Clock size={12} /> Delay (seconds)</label>
@@ -181,8 +190,8 @@ export default function WelcomerPage() {
             <div className="bg-dark-800 border border-dark-600 rounded-xl p-5 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Goodbye Channel (ID)</label>
-                  <input className={styles.inputDark} placeholder="Channel ID" value={settings.goodbye_channel || ''} onChange={e => update('goodbye_channel', e.target.value)} />
+                  <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Goodbye Channel</label>
+                  <ChannelSelector value={settings.goodbye_channel || ''} onChange={v => update('goodbye_channel', v)} placeholder="Select goodbye channel" filter="text" />
                 </div>
                 <div>
                   <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Palette size={12} /> Embed Color</label>

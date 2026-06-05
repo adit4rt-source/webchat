@@ -4,6 +4,7 @@ import { Flame, Save, Clock, Award, MessageSquare, UserCheck, Globe } from "luci
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
 import RewardEditor, { Reward } from "@/components/RewardEditor";
+import ChannelSelector from "@/components/ChannelSelector";
 
 const TIMEZONES = [
   { value: "Asia/Jakarta", label: "UTC+7 — Asia/Jakarta (WIB)" },
@@ -170,8 +171,8 @@ export default function StreakSettingsPage() {
         <div className="bg-dark-800 border border-dark-600 rounded-xl p-5 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><MessageSquare size={12} /> Announcement Channel (ID)</label>
-              <input className={styles.inputDark} placeholder="Channel ID (empty = disabled)" value={settings.streak_announce_channel || ''} onChange={e => update('streak_announce_channel', e.target.value)} />
+              <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><MessageSquare size={12} /> Announcement Channel</label>
+              <ChannelSelector value={settings.streak_announce_channel || ''} onChange={v => update('streak_announce_channel', v)} placeholder="Select channel (empty = disabled)" filter="text" />
             </div>
             <div>
               <label className="text-xs text-gray-500 block mb-1.5">Milestone Message</label>

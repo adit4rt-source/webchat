@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { UserPlus, Save, Trophy, Users, AlertTriangle, LogOut, Settings, Hash, MessageSquare, RotateCcw } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
+import ChannelSelector from "@/components/ChannelSelector";
 
 interface InviteEntry {
   userId: string;
@@ -159,8 +160,8 @@ export default function InvitePage() {
             <div className="bg-dark-800 border border-dark-600 rounded-xl p-5 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Invite Log Channel (ID)</label>
-                  <input className={styles.inputDark} placeholder="Channel ID for invite logs" value={settings.invite_channel || ''} onChange={e => update('invite_channel', e.target.value)} />
+                  <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Invite Log Channel</label>
+                  <ChannelSelector value={settings.invite_channel || ''} onChange={v => update('invite_channel', v)} placeholder="Select a channel for invite logs" filter="text" />
                 </div>
                 <div>
                   <label className="text-xs text-gray-500 block mb-1.5">Fake Account Threshold (days)</label>

@@ -4,6 +4,8 @@ import { Settings, Save, MessageSquare, Mic, Heart, Megaphone, Shield, Palette, 
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
 import RewardEditor, { Reward } from "@/components/RewardEditor";
+import ChannelSelector from "@/components/ChannelSelector";
+import RoleSelector from "@/components/RoleSelector";
 
 export default function LevelingSettingsPage() {
   const { selectedGuild } = useGuild();
@@ -123,7 +125,7 @@ export default function LevelingSettingsPage() {
           {/* Level Up Announcement */}
           <div className="bg-dark-800 border border-dark-600 rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between"><div className="flex items-center gap-2"><Megaphone size={16} className="text-yellow-400" /><span className="text-sm font-medium text-white">Level Up Announcement</span></div><Toggle enabled={settings.levelup_announce_enabled === '1'} onClick={() => toggle('levelup_announce_enabled')} small /></div>
-            <div><label className="text-[11px] text-gray-500 block mb-1">Announcement Channel (ID)</label><input className={styles.inputDark} placeholder="Channel ID (empty = same channel)" value={settings.levelup_channel || ''} onChange={e => update('levelup_channel', e.target.value)} /></div>
+            <div><label className="text-[11px] text-gray-500 block mb-1">Announcement Channel</label><ChannelSelector value={settings.levelup_channel || ''} onChange={v => update('levelup_channel', v)} placeholder="Select channel (empty = same channel)" filter="text" /></div>
             <div><label className="text-[11px] text-gray-500 block mb-1">Level Up Message</label><textarea className={`${styles.inputDark} h-20 text-xs font-mono`} value={settings.levelup_message || ''} onChange={e => update('levelup_message', e.target.value)} /></div>
             <p className="text-[10px] text-gray-600">Variables: {'{user.mention}'} {'{user.name}'} {'{user.level}'} {'{user.xp}'}</p>
           </div>
@@ -136,13 +138,28 @@ export default function LevelingSettingsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-dark-800 border border-dark-600 rounded-xl p-5">
             <div className="flex items-center gap-2 mb-3"><Hash size={16} className="text-gray-400" /><span className="text-sm font-medium text-white">No XP Channels</span></div>
-            <p className="text-xs text-gray-500 mb-2">Channel IDs where XP is not earned (comma-separated)</p>
-            <textarea className={`${styles.inputDark} h-16 text-xs font-mono`} placeholder="123456789,987654321" value={settings.no_xp_channels === '[]' ? '' : settings.no_xp_channels || ''} onChange={e => update('no_xp_channels', e.target.value)} />
+            <p className="text-xs text-gray-500 mb-2">Channels where XP is not earned</p>
+            <ChannelSelector
+              value=""
+              onChange={() => {}}
+              multiple
+              values={(() => { try { const v = settings.no_xp_channels || ''; if (v === '[]' || !v) return []; return v.startsWith('[') ? JSON.parse(v) : v.split(',').filter(Boolean); } catch { return []; } })()}
+              onChangeMultiple={(ids) => update('no_xp_channels', JSON.stringify(ids))}
+              placeholder="Select channels to exclude from XP"
+              filter="text"
+            />
           </div>
           <div className="bg-dark-800 border border-dark-600 rounded-xl p-5">
             <div className="flex items-center gap-2 mb-3"><UsersIcon size={16} className="text-gray-400" /><span className="text-sm font-medium text-white">No XP Roles</span></div>
-            <p className="text-xs text-gray-500 mb-2">Role IDs that cannot earn XP (comma-separated)</p>
-            <textarea className={`${styles.inputDark} h-16 text-xs font-mono`} placeholder="123456789,987654321" value={settings.no_xp_roles === '[]' ? '' : settings.no_xp_roles || ''} onChange={e => update('no_xp_roles', e.target.value)} />
+            <p className="text-xs text-gray-500 mb-2">Roles that cannot earn XP</p>
+            <RoleSelector
+              value=""
+              onChange={() => {}}
+              multiple
+              values={(() => { try { const v = settings.no_xp_roles || ''; if (v === '[]' || !v) return []; return v.startsWith('[') ? JSON.parse(v) : v.split(',').filter(Boolean); } catch { return []; } })()}
+              onChangeMultiple={(ids) => update('no_xp_roles', JSON.stringify(ids))}
+              placeholder="Select roles to exclude from XP"
+            />
           </div>
         </div>
       </div>

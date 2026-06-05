@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Mic, Save, Hash, Settings, Lock, Eye, EyeOff, UserX, Ban, Type, Users } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
+import ChannelSelector from "@/components/ChannelSelector";
 
 export default function TempvoicePage() {
   const { selectedGuild } = useGuild();
@@ -86,13 +87,13 @@ export default function TempvoicePage() {
         <div className="bg-dark-800 border border-dark-600 rounded-xl p-5 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Category ID</label>
-              <input className={styles.inputDark} placeholder="Category where channels are created" value={settings.jtc_category || ''} onChange={e => update('jtc_category', e.target.value)} />
-              <p className="text-[10px] text-gray-600 mt-1">Use /admin → TempVoice → Setup to auto-create, or paste category ID here</p>
+              <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Category</label>
+              <ChannelSelector value={settings.jtc_category || ''} onChange={v => update('jtc_category', v)} placeholder="Select category for temp channels" filter="category" />
+              <p className="text-[10px] text-gray-600 mt-1">Use /admin → TempVoice → Setup to auto-create, or select category here</p>
             </div>
             <div>
-              <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Interface Channel ID</label>
-              <input className={styles.inputDark} placeholder="Channel with control panel" value={settings.jtc_channel || ''} onChange={e => update('jtc_channel', e.target.value)} />
+              <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Interface Channel</label>
+              <ChannelSelector value={settings.jtc_channel || ''} onChange={v => update('jtc_channel', v)} placeholder="Select control panel channel" filter="text" />
             </div>
           </div>
 
