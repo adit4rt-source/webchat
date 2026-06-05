@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Flame, Save, Clock, Award, MessageSquare, UserCheck, Globe } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
+import RewardEditor, { Reward } from "@/components/RewardEditor";
 
 const TIMEZONES = [
   { value: "Asia/Jakarta", label: "UTC+7 — Asia/Jakarta (WIB)" },
@@ -11,14 +12,6 @@ const TIMEZONES = [
   { value: "Asia/Singapore", label: "UTC+8 — Asia/Singapore" },
   { value: "America/New_York", label: "UTC-5 — New York (EST)" },
   { value: "Europe/London", label: "UTC+0 — London (GMT)" },
-];
-
-const MILESTONES = [
-  { key: '7', label: '7 Days', emoji: '🔥', color: 'text-orange-400' },
-  { key: '14', label: '14 Days', emoji: '🕯️', color: 'text-yellow-400' },
-  { key: '30', label: '30 Days', emoji: '🏅', color: 'text-blue-400' },
-  { key: '60', label: '60 Days', emoji: '☀️', color: 'text-purple-400' },
-  { key: '100', label: '100 Days', emoji: '🌋', color: 'text-red-400' },
 ];
 
 export default function StreakSettingsPage() {
@@ -54,6 +47,35 @@ export default function StreakSettingsPage() {
 
   if (!selectedGuild) return <div className={styles.card}><p className="text-gray-400">Select a server from the sidebar.</p></div>;
   if (loading) return <div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-2 border-orange-400 border-t-transparent"></div></div>;
+
+  // Parse rewards from settings into Reward[] format
+  function parseRewards(s: Record<string, string>): Reward[] {
+    try {
+      const raw = s.streak_rewards;
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    // Fallback: try to build from old fixed milestones
+    const rewards: Reward[] = [];
+    for (const d of ['7','14','30','60','100']) {
+      const money = parseInt(s[`streak_reward_${d}`] || '0');
+      const roleId = s[`streak_role_${d}`] || '';
+      if (money > 0 || roleId) {
+        const type = (money > 0 && roleId) ? 'both' : (roleId ? 'role' : 'money');
+        rewards.push({ id: `legacy_${d}`, days: parseInt(d), money, roleId, type });
+      }
+    }
+    return rewards;
+  }
+
+  function saveRewardsToSettings(rewards: Reward[]) {
+    update('streak_rewards', JSON.stringify(rewards));
+    // Also update individual keys for backward compatibility
+    for (const d of ['7','14','30','60','100']) {
+      const found = rewards.find(r => r.days === parseInt(d));
+      update(`streak_reward_${d}`, found ? String(found.money) : '0');
+      update(`streak_role_${d}`, found ? found.roleId : '');
+    }
+  }
 
   return (
     <div className="space-y-6 max-w-[1400px]">
@@ -132,25 +154,14 @@ export default function StreakSettingsPage() {
       {/* Streak Role Rewards */}
       <div>
         <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Streak Role Rewards</h2>
-        <p className="text-xs text-gray-500 mb-3">Assign roles when a member reaches a streak milestone.</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {MILESTONES.map(ms => (
-            <div key={ms.key} className="bg-dark-800 border border-dark-600 rounded-xl p-4 space-y-3">
-              <div className="flex items-center gap-2">
-                <span className="text-lg">{ms.emoji}</span>
-                <span className={`text-sm font-medium ${ms.color}`}>{ms.label}</span>
-              </div>
-              <div>
-                <label className="text-[11px] text-gray-500 block mb-1">Money Reward</label>
-                <input type="number" className={styles.inputDark} value={settings[`streak_reward_${ms.key}`] || '0'} onChange={e => update(`streak_reward_${ms.key}`, e.target.value)} />
-              </div>
-              <div>
-                <label className="text-[11px] text-gray-500 block mb-1">Role ID (optional)</label>
-                <input className={styles.inputDark} placeholder="Role ID to assign" value={settings[`streak_role_${ms.key}`] || ''} onChange={e => update(`streak_role_${ms.key}`, e.target.value)} />
-              </div>
-            </div>
-          ))}
-        </div>
+        <p className="text-xs text-gray-500 mb-3">Assign roles and money when a member reaches a streak milestone.</p>
+        <RewardEditor
+          rewards={parseRewards(settings)}
+          onChange={(rewards) => saveRewardsToSettings(rewards)}
+          label="days"
+          placeholder="7"
+          milestoneLabel="Streak Days"
+        />
       </div>
 
       {/* Announcement */}
