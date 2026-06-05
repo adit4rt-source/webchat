@@ -169,7 +169,7 @@ export default function RoleSelector({ value, onChange, placeholder = "Select ro
                     >
                       <RoleDot color={r.color} />
                       <span className="text-sm text-white truncate">{r.name}</span>
-                      {r.managed && <Shield size={10} className="text-gray-600 ml-auto shrink-0" title="Bot role" />}
+                      {r.managed && <Shield size={10} className="text-gray-600 ml-auto shrink-0" />}
                       {isSelected && <span className="ml-auto text-accent-primary text-xs">✓</span>}
                     </button>
                   );
