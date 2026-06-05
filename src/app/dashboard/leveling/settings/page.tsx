@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Settings, Save, MessageSquare, Mic, Heart, Megaphone, Shield, Palette, Hash, Users as UsersIcon } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
+import RewardEditor, { Reward } from "@/components/RewardEditor";
 
 export default function LevelingSettingsPage() {
   const { selectedGuild } = useGuild();
