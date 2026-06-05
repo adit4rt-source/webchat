@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { styles } from "@/lib/styles";
 import GuildSelector from "@/components/GuildSelector";
+import LangToggle from "@/components/LangToggle";
 import { useState } from "react";
 
 interface SidebarProps {
@@ -77,6 +78,7 @@ export default function Sidebar({ user }: SidebarProps) {
             <h1 className="font-bold text-white text-sm truncate">idcommunity</h1>
             <p className="text-[10px] text-gray-500 uppercase tracking-wider">Dashboard</p>
           </div>
+          <LangToggle />
         </div>
       </div>
 
