@@ -147,17 +147,36 @@ export default function LevelingSettingsPage() {
         </div>
       </div>
 
-      {/* Role Rewards */}
+      {/* Level Rewards */}
       <div>
-        <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Role Rewards</h2>
-        <div className="bg-dark-800 border border-dark-600 rounded-xl p-5">
-          <p className="text-xs text-gray-500 mb-3">Give roles when reaching specific levels. Format: <code className="text-accent-primary">level:roleId</code> (comma-separated)</p>
-          <textarea className={`${styles.inputDark} h-20 text-xs font-mono`} placeholder="5:123456789,10:987654321,25:111222333" value={settings.role_rewards === '[]' ? '' : settings.role_rewards || ''} onChange={e => update('role_rewards', e.target.value)} />
-          <p className="text-[10px] text-gray-600 mt-2">Example: 5:123456 means at Level 5, give role ID 123456</p>
-        </div>
+        <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Level Rewards</h2>
+        <p className="text-xs text-gray-500 mb-3">Assign roles and money when a member reaches a specific level.</p>
+        <RewardEditor
+          rewards={parseLevelRewards(settings.role_rewards || '[]')}
+          onChange={(rewards) => update('role_rewards', JSON.stringify(rewards))}
+          label="level"
+          placeholder="5"
+          milestoneLabel="Level"
+        />
       </div>
     </div>
   );
+}
+
+function parseLevelRewards(raw: string): Reward[] {
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].id) return parsed;
+    return [];
+  } catch (e) {
+    if (raw && raw.includes(':')) {
+      return raw.split(',').filter(Boolean).map((pair, i) => {
+        const [level, roleId] = pair.split(':');
+        return { id: `legacy_${i}`, days: parseInt(level) || 0, money: 0, roleId: roleId?.trim() || '', type: 'role' as const };
+      });
+    }
+    return [];
+  }
 }
 
 function Toggle({ enabled, onClick, small }: { enabled: boolean; onClick: () => void; small?: boolean }) {
