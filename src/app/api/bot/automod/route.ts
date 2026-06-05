@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { botApi } from "@/lib/api";
 
-const GUILD_ID = process.env.GUILD_ID || "1056412836433240074";
-
-export async function GET() {
+export async function GET(req: Request) {
   const session = await auth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { searchParams } = new URL(req.url);
+  const guildId = searchParams.get("guildId");
+  if (!guildId) return NextResponse.json({ error: "Missing guildId" }, { status: 400 });
   try {
-    const data = await botApi(`/api/automod/${GUILD_ID}`);
+    const data = await botApi(`/api/automod/${guildId}`, { userId: (session.user as any).id });
     return NextResponse.json(data);
   } catch (e: any) { return NextResponse.json({ error: e.message }, { status: 500 }); }
 }
@@ -18,8 +19,9 @@ export async function POST(req: Request) {
   if (!session?.user || !(session.user as any).isAdmin) return NextResponse.json({ error: "Admin required" }, { status: 403 });
   try {
     const body = await req.json();
-    const { endpoint, ...data } = body;
-    const result = await botApi(`/api/automod/${GUILD_ID}/${endpoint}`, { method: "POST", body: data, userId: (session.user as any).id });
+    const { endpoint, guildId, ...data } = body;
+    if (!guildId) return NextResponse.json({ error: "Missing guildId" }, { status: 400 });
+    const result = await botApi(`/api/automod/${guildId}/${endpoint}`, { method: "POST", body: data, userId: (session.user as any).id });
     return NextResponse.json(result);
   } catch (e: any) { return NextResponse.json({ error: e.message }, { status: 500 }); }
 }

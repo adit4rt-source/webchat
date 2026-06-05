@@ -9,6 +9,7 @@ import {
   ChevronDown, Globe
 } from "lucide-react";
 import { styles } from "@/lib/styles";
+import GuildSelector from "@/components/GuildSelector";
 import { useState } from "react";
 
 interface SidebarProps {
@@ -78,6 +79,9 @@ export default function Sidebar({ user }: SidebarProps) {
           </div>
         </div>
       </div>
+
+      {/* Guild Selector */}
+      <GuildSelector />
 
       {/* Search */}
       <div className="px-3 py-2">

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Shield, Plus, X, Hash, Users } from "lucide-react";
 import { styles } from "@/lib/styles";
+import { useGuild } from "@/lib/GuildContext";
 
 interface AutomodData {
   modules: { id: string; name: string; emoji: string; desc: string }[];
@@ -14,6 +15,7 @@ interface AutomodData {
 }
 
 export default function AutomodPage() {
+  const { selectedGuild } = useGuild();
   const [data, setData] = useState<AutomodData | null>(null);
   const [loading, setLoading] = useState(true);
   const [newWord, setNewWord] = useState("");
@@ -22,22 +24,27 @@ export default function AutomodPage() {
   const [logChannel, setLogChannel] = useState("");
   const [msg, setMsg] = useState("");
 
-  useEffect(() => { loadData(); }, []);
+  useEffect(() => { if (selectedGuild) loadData(); }, [selectedGuild]);
 
   function loadData() {
-    fetch("/api/bot/automod").then(r => r.json()).then(d => {
+    if (!selectedGuild) return;
+    setLoading(true);
+    fetch(`/api/bot/automod?guildId=${selectedGuild.id}`).then(r => r.json()).then(d => {
       if (!d.error) { setData(d); setLogChannel(d.settings?.mod_log_channel || ""); }
     }).catch(() => {}).finally(() => setLoading(false));
   }
 
   async function apiAction(endpoint: string, body: any) {
-    const res = await fetch("/api/bot/automod", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ endpoint, ...body }) });
+    if (!selectedGuild) return;
+    const res = await fetch("/api/bot/automod", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ endpoint, guildId: selectedGuild.id, ...body }) });
     const r = await res.json();
     if (r.success) loadData();
     else setMsg("❌ " + (r.error || "Failed"));
     setTimeout(() => setMsg(""), 3000);
     return r;
   }
+
+  if (!selectedGuild) return <div className={styles.card}><p className="text-gray-400">Select a server from the sidebar first.</p></div>;
 
   if (loading) return <div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-2 border-accent-primary border-t-transparent"></div></div>;
   if (!data) return <div className={`${styles.card} border-red-500/20`}><p className="text-red-400">Failed to load automod data</p></div>;
