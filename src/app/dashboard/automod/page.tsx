@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Shield, Plus, X, Hash, Users } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
+import ChannelSelector from "@/components/ChannelSelector";
+import RoleSelector from "@/components/RoleSelector";
 
 interface AutomodData {
   modules: { id: string; name: string; emoji: string; desc: string }[];
@@ -91,8 +93,9 @@ export default function AutomodPage() {
           <div className="bg-dark-800 border border-dark-600 rounded-lg p-4">
             <p className="text-xs text-gray-500 mb-2">Moderation Log Channel</p>
             <div className="flex gap-2">
-              <input className={styles.inputDark} placeholder="Channel ID" value={logChannel} onChange={e => setLogChannel(e.target.value)} />
-              <button className={styles.btnPrimary} onClick={() => apiAction("settings", { key: "mod_log_channel", value: logChannel })}>Save</button>
+              <div className="flex-1">
+                <ChannelSelector value={logChannel} onChange={v => { setLogChannel(v); apiAction("settings", { key: "mod_log_channel", value: v }); }} placeholder="Select log channel" filter="text" />
+              </div>
             </div>
           </div>
         </div>
@@ -117,11 +120,12 @@ export default function AutomodPage() {
 
       {/* Whitelist */}
       <div className={styles.card}>
-        <h3 className="text-sm font-medium text-gray-400 mb-3 flex items-center gap-2"><Users size={14} /> Whitelist (User / Role IDs)</h3>
-        <p className="text-xs text-gray-500 mb-3">These users and roles are immune to all automod checks.</p>
+        <h3 className="text-sm font-medium text-gray-400 mb-3 flex items-center gap-2"><Users size={14} /> Whitelist (Roles)</h3>
+        <p className="text-xs text-gray-500 mb-3">These roles are immune to all automod checks.</p>
         <div className="flex gap-2 mb-3">
-          <input className={`${styles.inputDark} flex-1`} placeholder="Paste a Discord ID and press Enter" value={newWhitelistId} onChange={e => setNewWhitelistId(e.target.value)} onKeyDown={e => { if (e.key === "Enter" && newWhitelistId.trim()) { apiAction("whitelist", { action: "add", targetId: newWhitelistId.trim() }); setNewWhitelistId(""); }}} />
-          <button className={styles.btnPrimary} onClick={() => { if (newWhitelistId.trim()) { apiAction("whitelist", { action: "add", targetId: newWhitelistId.trim() }); setNewWhitelistId(""); }}}><Plus size={16} /></button>
+          <div className="flex-1">
+            <RoleSelector value="" onChange={v => { if (v) { apiAction("whitelist", { action: "add", targetId: v }); } }} placeholder="Select a role to whitelist" />
+          </div>
         </div>
         <div className="flex flex-wrap gap-2">
           {data.whitelist.map(w => (
@@ -138,8 +142,9 @@ export default function AutomodPage() {
         <h3 className="text-sm font-medium text-gray-400 mb-3 flex items-center gap-2"><Hash size={14} /> Ignored Channels</h3>
         <p className="text-xs text-gray-500 mb-3">Automod is fully disabled in these channels.</p>
         <div className="flex gap-2 mb-3">
-          <input className={`${styles.inputDark} flex-1`} placeholder="Channel ID" value={newChannelId} onChange={e => setNewChannelId(e.target.value)} onKeyDown={e => { if (e.key === "Enter" && newChannelId.trim()) { apiAction("channels", { action: "add", channelId: newChannelId.trim() }); setNewChannelId(""); }}} />
-          <button className={styles.btnPrimary} onClick={() => { if (newChannelId.trim()) { apiAction("channels", { action: "add", channelId: newChannelId.trim() }); setNewChannelId(""); }}}><Plus size={16} /></button>
+          <div className="flex-1">
+            <ChannelSelector value="" onChange={v => { if (v) { apiAction("channels", { action: "add", channelId: v }); } }} placeholder="Select a channel to ignore" filter="text" />
+          </div>
         </div>
         <div className="flex flex-wrap gap-2">
           {data.ignoredChannels.map(ch => (

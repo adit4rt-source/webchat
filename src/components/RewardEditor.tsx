@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Plus, Trash2, Coins, UserCheck, Gift } from "lucide-react";
 import { styles } from "@/lib/styles";
+import RoleSelector from "@/components/RoleSelector";
 
 export interface Reward {
   id: string;
@@ -53,7 +54,7 @@ export default function RewardEditor({ rewards, onChange, label = "days", placeh
                     <span className="flex items-center gap-1.5 px-2.5 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-md text-xs text-yellow-400"><Coins size={12} /> {reward.money.toLocaleString("id-ID")} money</span>
                   )}
                   {(reward.type === "role" || reward.type === "both") && reward.roleId && (
-                    <span className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-500/10 border border-blue-500/20 rounded-md text-xs text-blue-400"><UserCheck size={12} /> Role: {reward.roleId}</span>
+                    <RoleBadge roleId={reward.roleId} />
                   )}
                 </div>
               </div>
@@ -66,11 +67,16 @@ export default function RewardEditor({ rewards, onChange, label = "days", placeh
       {showAdd ? (
         <div className="bg-dark-800 border border-accent-primary/30 rounded-xl p-5 space-y-4">
           <h4 className="text-sm font-medium text-white">Add New Reward</h4>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             <div><label className="text-[11px] text-gray-500 block mb-1">{milestoneLabel}</label><input type="number" className={styles.inputDark} placeholder={placeholder} value={newDays} onChange={e => setNewDays(e.target.value)} /></div>
             <div><label className="text-[11px] text-gray-500 block mb-1">Reward Type</label><select className={styles.inputDark} value={newType} onChange={e => setNewType(e.target.value as any)}><option value="money">Money Only</option><option value="role">Role Only</option><option value="both">Both</option></select></div>
             {(newType === "money" || newType === "both") && (<div><label className="text-[11px] text-gray-500 block mb-1">Money Amount</label><input type="number" className={styles.inputDark} placeholder="1000" value={newMoney} onChange={e => setNewMoney(e.target.value)} /></div>)}
-            {(newType === "role" || newType === "both") && (<div><label className="text-[11px] text-gray-500 block mb-1">Role ID</label><input className={styles.inputDark} placeholder="123456789" value={newRole} onChange={e => setNewRole(e.target.value)} /></div>)}
+            {(newType === "role" || newType === "both") && (
+              <div>
+                <label className="text-[11px] text-gray-500 block mb-1">Role</label>
+                <RoleSelector value={newRole} onChange={v => setNewRole(v)} placeholder="Select a role" />
+              </div>
+            )}
           </div>
           <div className="flex gap-2">
             <button onClick={addReward} className={`${styles.btnPrimary} text-xs`}><Plus size={14} className="inline mr-1" /> Add Reward</button>
@@ -81,5 +87,13 @@ export default function RewardEditor({ rewards, onChange, label = "days", placeh
         <button onClick={() => setShowAdd(true)} className="w-full py-3 border-2 border-dashed border-dark-500 rounded-xl text-sm text-gray-500 hover:text-accent-primary hover:border-accent-primary/30 transition-all flex items-center justify-center gap-2"><Plus size={16} /> Add Reward</button>
       )}
     </div>
+  );
+}
+
+function RoleBadge({ roleId }: { roleId: string }) {
+  return (
+    <span className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-500/10 border border-blue-500/20 rounded-md text-xs text-blue-400">
+      <UserCheck size={12} /> Role: {roleId}
+    </span>
   );
 }

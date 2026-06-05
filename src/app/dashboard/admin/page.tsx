@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Shield, Coins, User, Package, RotateCcw, Database } from "lucide-react";
 
 import { styles } from "@/lib/styles";
+import MemberSelector from "@/components/MemberSelector";
 
 export default function AdminPage() {
   const [result, setResult] = useState<any>(null);
@@ -93,7 +94,7 @@ function BalanceForm({ onSubmit, loading }: { onSubmit: any; loading: boolean })
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-white">💰 Manage Balance</h3>
-      <input className={styles.inputDark} placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <MemberSelector value={userId} onChange={setUserId} placeholder="Select a member" />
       <select className={styles.inputDark} value={action} onChange={(e) => setAction(e.target.value)}>
         <option value="add">Add</option>
         <option value="remove">Remove</option>
@@ -113,7 +114,7 @@ function LevelForm({ onSubmit, loading }: { onSubmit: any; loading: boolean }) {
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-white">📈 Set Level</h3>
-      <input className={styles.inputDark} placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <MemberSelector value={userId} onChange={setUserId} placeholder="Select a member" />
       <input className={styles.inputDark} type="number" placeholder="New Level" value={level} onChange={(e) => setLevel(e.target.value)} />
       <button className={styles.btnPrimary} disabled={loading} onClick={() => onSubmit("level", { userId, level: parseInt(level) })}>
         {loading ? "Processing..." : "Set Level"}
@@ -130,7 +131,7 @@ function ItemsForm({ onSubmit, loading }: { onSubmit: any; loading: boolean }) {
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-white">🎒 Give/Remove Items</h3>
-      <input className={styles.inputDark} placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <MemberSelector value={userId} onChange={setUserId} placeholder="Select a member" />
       <input className={styles.inputDark} placeholder="Item ID (e.g. rod_part, mystery_box)" value={itemId} onChange={(e) => setItemId(e.target.value)} />
       <select className={styles.inputDark} value={action} onChange={(e) => setAction(e.target.value)}>
         <option value="give">Give</option>
@@ -151,7 +152,7 @@ function ResetForm({ onSubmit, loading }: { onSubmit: any; loading: boolean }) {
     <div className="space-y-4">
       <h3 className="font-semibold text-white">⚠️ Reset User Data</h3>
       <p className="text-sm text-red-400">Hati-hati! Aksi ini tidak bisa di-undo.</p>
-      <input className={styles.inputDark} placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+      <MemberSelector value={userId} onChange={setUserId} placeholder="Select a member" />
       <select className={styles.inputDark} value={resetType} onChange={(e) => setResetType(e.target.value)}>
         <option value="balance">Reset Balance</option>
         <option value="level">Reset Level</option>
