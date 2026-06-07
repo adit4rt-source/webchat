@@ -53,9 +53,9 @@ export default function GeneralPage() {
       {/* Bot Info Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <InfoCard icon={Bot} label="Bot Version" value={stats?.version || "?"} color="text-accent-primary" />
-        <InfoCard icon={Globe} label="Mode" value={stats?.globalMode ? "Global" : "Per-Guild"} color="text-neon-blue" />
+        <InfoCard icon={Globe} label="Mode" value={stats?.globalMode ? "Global" : "Per-Guild"} color="text-neon-red" />
         <InfoCard icon={Clock} label="Uptime" value={stats ? formatUptime(stats.uptime) : "—"} color="text-neon-green" />
-        <InfoCard icon={Server} label="Total Servers" value={String(stats?.guilds || 0)} color="text-neon-purple" />
+        <InfoCard icon={Server} label="Total Servers" value={String(stats?.guilds || 0)} color="text-neon-crimson" />
       </div>
 
       {/* Features Status */}

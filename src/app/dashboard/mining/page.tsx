@@ -179,6 +179,30 @@ export default function MiningPage() {
         </div>
       )}
 
+      {/* Ore Types */}
+      {stats.ores && stats.ores.length > 0 && (
+        <div className={styles.card}>
+          <h3 className="text-sm font-medium text-gray-400 mb-4 flex items-center gap-2">
+            <Gem size={16} className="text-emerald-400" /> Ore Types ({stats.ores.length})
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {stats.ores.map((ore) => (
+              <div key={ore.id} className="bg-dark-700/50 rounded-lg p-3 border border-dark-600/50">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-medium text-white">{ore.name}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${getRarityColor(ore.rarity)}`}>
+                    {ore.rarity}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Value: {ore.value.toLocaleString("id-ID")} coins
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Leaderboards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Top Miners */}
@@ -204,7 +228,7 @@ export default function MiningPage() {
         </div>
 
         {/* Top Prestige */}
-        <div className={styles.card}>
+        <div className={styles.cardHighlight}>
           <h3 className="text-sm font-medium text-gray-400 mb-4 flex items-center gap-2">
             <Award size={16} className="text-yellow-400" /> Top Prestige
           </h3>
