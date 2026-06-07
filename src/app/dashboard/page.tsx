@@ -108,7 +108,7 @@ export default function DashboardPage() {
           label="Commands Used"
           value={formatNumber(stats.stats.totalCommands)}
           icon={Zap}
-          color="purple"
+          color="red"
           subtitle="all time"
         />
         <StatCard
@@ -165,6 +165,7 @@ export default function DashboardPage() {
 function StatCard({ label, value, icon: Icon, color, subtitle }: { label: string; value: string; icon: any; color: string; subtitle: string }) {
   const colorMap: Record<string, string> = {
     blue: "from-blue-500/10 to-transparent border-blue-500/20 text-blue-400",
+    red: "from-red-500/10 to-transparent border-red-500/20 text-red-400",
     purple: "from-purple-500/10 to-transparent border-purple-500/20 text-purple-400",
     yellow: "from-yellow-500/10 to-transparent border-yellow-500/20 text-yellow-400",
     green: "from-green-500/10 to-transparent border-green-500/20 text-green-400",
