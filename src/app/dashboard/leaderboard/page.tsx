@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Trophy } from "lucide-react";
 
 import { styles } from "@/lib/styles";
+import UserCell from "@/components/UserCell";
 
 const TYPES = [
   { id: "money", label: "💰 Money" },
@@ -11,6 +12,7 @@ const TYPES = [
   { id: "farm", label: "🌾 Farming" },
   { id: "achievement", label: "🏆 Achievement" },
   { id: "pet", label: "🐾 Pet" },
+  { id: "mining", label: "⛏️ Mining" },
 ];
 
 export default function LeaderboardPage() {
@@ -65,19 +67,39 @@ export default function LeaderboardPage() {
             <thead>
               <tr className="border-b border-dark-600 text-gray-500 text-left">
                 <th className="pb-3 pl-2">#</th>
-                <th className="pb-3">User ID</th>
+                <th className="pb-3">User</th>
                 <th className="pb-3 text-right pr-2">Score</th>
               </tr>
             </thead>
             <tbody>
               {data.map((row: any, i: number) => {
                 const medal = ["🥇", "🥈", "🥉"][i] || `${i + 1}`;
-                const value = row.balance || row.total || row.level || row.maxLevel || 0;
+                let value: string;
+                if (type === "mining") {
+                  if (row.totalDigs != null) {
+                    value = `${Number(row.totalDigs).toLocaleString("id-ID")} digs`;
+                  } else if (row.prestige != null && row.level != null) {
+                    value = `P${row.prestige} Lv.${row.level}`;
+                  } else {
+                    value = "0";
+                  }
+                } else {
+                  const numValue = row.balance || row.total || row.level || row.maxLevel || 0;
+                  value = numValue.toLocaleString("id-ID");
+                }
+                const userInfo = row._user ? {
+                  userId: row._user.userId || row.userId,
+                  username: row._user.username,
+                  displayName: row._user.displayName,
+                  avatar: row._user.avatar,
+                } : undefined;
                 return (
                   <tr key={i} className="border-b border-dark-700/50 hover:bg-dark-700/30 transition-colors">
                     <td className="py-3 pl-2 text-lg">{medal}</td>
-                    <td className="py-3 font-mono text-xs text-gray-300">{row.userId}</td>
-                    <td className="py-3 text-right pr-2 font-bold text-white">{value.toLocaleString("id-ID")}</td>
+                    <td className="py-3">
+                      <UserCell user={userInfo} userId={row.userId} />
+                    </td>
+                    <td className="py-3 text-right pr-2 font-bold text-white">{value}</td>
                   </tr>
                 );
               })}
