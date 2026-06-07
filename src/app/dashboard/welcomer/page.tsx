@@ -123,6 +123,33 @@ export default function WelcomerPage() {
                 <input className={styles.inputDark} placeholder="https://..." value={settings.welcome_embed_image || ''} onChange={e => update('welcome_embed_image', e.target.value)} />
               </div>
             </div>
+
+            <div className="border-t border-dark-600 pt-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Image size={14} className="text-purple-400" />
+                  <div>
+                    <p className="text-sm font-medium text-white">Welcome Card (auto-generated image)</p>
+                    <p className="text-[10px] text-gray-500">Background + avatar + text, rendered per member</p>
+                  </div>
+                </div>
+                <Toggle enabled={settings.welcome_banner_enabled === '1'} onClick={() => toggle('welcome_banner_enabled')} />
+              </div>
+              {settings.welcome_banner_enabled === '1' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs text-gray-500 block mb-1.5">Background Image URL</label>
+                    <input className={styles.inputDark} placeholder="https://your-image-link.png" value={settings.welcome_banner_bg || ''} onChange={e => update('welcome_banner_bg', e.target.value)} />
+                    <p className="text-[10px] text-gray-600 mt-1">Paste a direct image link. Empty = dark gradient.</p>
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500 block mb-1.5">Headline Text</label>
+                    <input className={styles.inputDark} placeholder="WELCOME" value={settings.welcome_banner_text || ''} onChange={e => update('welcome_banner_text', e.target.value)} />
+                    <p className="text-[10px] text-gray-600 mt-1">Big text on the card. Color = embed color.</p>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -205,6 +232,33 @@ export default function WelcomerPage() {
                 <label className="text-xs text-gray-500 block mb-1.5">Goodbye Message</label>
                 <textarea className={`${styles.inputDark} h-20 text-xs font-mono`} value={settings.goodbye_message || ''} onChange={e => update('goodbye_message', e.target.value)} />
                 <p className="text-[10px] text-gray-600 mt-1">Variables: {'{user.mention}'} {'{user.name}'} {'{server.name}'} {'{server.memberCount}'}</p>
+              </div>
+
+              <div className="border-t border-dark-600 pt-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Image size={14} className="text-red-400" />
+                    <div>
+                      <p className="text-sm font-medium text-white">Goodbye Card (auto-generated image)</p>
+                      <p className="text-[10px] text-gray-500">Background + avatar + text, rendered per member</p>
+                    </div>
+                  </div>
+                  <Toggle enabled={settings.goodbye_banner_enabled === '1'} onClick={() => toggle('goodbye_banner_enabled')} />
+                </div>
+                {settings.goodbye_banner_enabled === '1' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-xs text-gray-500 block mb-1.5">Background Image URL</label>
+                      <input className={styles.inputDark} placeholder="https://your-image-link.png" value={settings.goodbye_banner_bg || ''} onChange={e => update('goodbye_banner_bg', e.target.value)} />
+                      <p className="text-[10px] text-gray-600 mt-1">Paste a direct image link. Empty = dark gradient.</p>
+                    </div>
+                    <div>
+                      <label className="text-xs text-gray-500 block mb-1.5">Headline Text</label>
+                      <input className={styles.inputDark} placeholder="GOODBYE" value={settings.goodbye_banner_text || ''} onChange={e => update('goodbye_banner_text', e.target.value)} />
+                      <p className="text-[10px] text-gray-600 mt-1">Big text on the card. Color = embed color.</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
