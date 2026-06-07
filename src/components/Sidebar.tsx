@@ -6,7 +6,7 @@ import {
   Home, Settings, Shield, LogOut, Trophy, Users, BarChart3,
   Fish, Sprout, PawPrint, Flame, UserPlus, MessageSquare,
   Mic, Gift, Wrench, BookOpen, Bot, Gamepad2, Search,
-  ChevronDown, Globe, Pickaxe
+  ChevronDown, Globe
 } from "lucide-react";
 import { styles } from "@/lib/styles";
 import GuildSelector from "@/components/GuildSelector";
@@ -40,7 +40,6 @@ const navSections = [
       { href: "/dashboard/farming", label: "Farming", icon: Sprout },
       { href: "/dashboard/pets", label: "Pets", icon: PawPrint },
       { href: "/dashboard/casino", label: "Casino", icon: Gamepad2 },
-      { href: "/dashboard/mining", label: "Mining", icon: Pickaxe },
     ]
   },
   {

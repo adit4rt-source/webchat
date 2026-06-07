@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Users, Server, Fish, Sprout, PawPrint, Trophy, Clock, Coins, Activity, TrendingUp, Zap, Globe, Pickaxe, Hammer } from "lucide-react";
+import { Users, Server, Fish, Sprout, PawPrint, Trophy, Clock, Coins, Activity, TrendingUp, Zap, Globe } from "lucide-react";
 import { styles } from "@/lib/styles";
 
 interface BotStats {
@@ -16,8 +16,6 @@ interface BotStats {
     totalAchievements: number;
     totalMoney: number;
     totalCommands: number;
-    totalMiningDigs: number;
-    totalMiners: number;
   };
 }
 
@@ -130,8 +128,6 @@ export default function DashboardPage() {
           <MiniStat icon={Sprout} label="Harvests" value={formatNumber(stats.stats.totalFarmHarvests)} color="text-green-400" />
           <MiniStat icon={PawPrint} label="Pets" value={formatNumber(stats.stats.totalPets)} color="text-purple-400" />
           <MiniStat icon={Trophy} label="Achievements" value={formatNumber(stats.stats.totalAchievements)} color="text-yellow-400" />
-          <MiniStat icon={Pickaxe} label="Mining Digs" value={formatNumber(stats.stats.totalMiningDigs || 0)} color="text-orange-400" />
-          <MiniStat icon={Hammer} label="Total Miners" value={formatNumber(stats.stats.totalMiners || 0)} color="text-amber-400" />
         </div>
       </div>
 

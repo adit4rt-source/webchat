@@ -12,7 +12,6 @@ const TYPES = [
   { id: "farm", label: "🌾 Farming" },
   { id: "achievement", label: "🏆 Achievement" },
   { id: "pet", label: "🐾 Pet" },
-  { id: "mining", label: "⛏️ Mining" },
 ];
 
 export default function LeaderboardPage() {
@@ -74,19 +73,8 @@ export default function LeaderboardPage() {
             <tbody>
               {data.map((row: any, i: number) => {
                 const medal = ["🥇", "🥈", "🥉"][i] || `${i + 1}`;
-                let value: string;
-                if (type === "mining") {
-                  if (row.totalDigs != null) {
-                    value = `${Number(row.totalDigs).toLocaleString("id-ID")} digs`;
-                  } else if (row.prestige != null && row.level != null) {
-                    value = `P${row.prestige} Lv.${row.level}`;
-                  } else {
-                    value = "0";
-                  }
-                } else {
-                  const numValue = row.balance || row.total || row.level || row.maxLevel || 0;
-                  value = numValue.toLocaleString("id-ID");
-                }
+                const numValue = row.balance || row.total || row.level || row.maxLevel || 0;
+                const value = numValue.toLocaleString("id-ID");
                 const userInfo = row._user ? {
                   userId: row._user.userId || row.userId,
                   username: row._user.username,
