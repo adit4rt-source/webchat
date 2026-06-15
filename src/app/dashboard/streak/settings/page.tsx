@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Flame, Save, Clock, Award, MessageSquare, UserCheck, Globe } from "lucide-react";
+import { Flame, Save, MessageSquare, UserCheck, Globe } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
 import RewardEditor, { Reward } from "@/components/RewardEditor";

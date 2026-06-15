@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Settings, Server, Globe, Clock, Bot, Hash, Shield, Bell } from "lucide-react";
+import { Settings, Server, Globe, Clock, Bot } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
 
