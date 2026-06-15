@@ -6,7 +6,7 @@ import {
   Home, Settings, Shield, LogOut, Trophy, Users, BarChart3,
   Fish, Sprout, PawPrint, Flame, UserPlus, MessageSquare,
   Mic, Gift, Wrench, BookOpen, Bot, Gamepad2, Search,
-  ChevronDown, Globe
+  ChevronDown, Globe, Skull, TrendingUp, Activity
 } from "lucide-react";
 import { styles } from "@/lib/styles";
 import GuildSelector from "@/components/GuildSelector";
@@ -50,6 +50,23 @@ const navSections = [
       { href: "/dashboard/invite", label: "Invite", icon: UserPlus },
       { href: "/dashboard/welcomer", label: "Welcomer", icon: MessageSquare },
       { href: "/dashboard/tempvoice", label: "Tempvoice", icon: Mic },
+    ]
+  },
+  {
+    title: null,
+    items: [
+      { href: "/dashboard/achievements", label: "Achievements", icon: Trophy },
+      { href: "/dashboard/quests", label: "Quests", icon: BookOpen },
+      { href: "/dashboard/titles", label: "Titles", icon: TrendingUp },
+      { href: "/dashboard/giveaways", label: "Giveaways", icon: Gift },
+    ]
+  },
+  {
+    title: null,
+    items: [
+      { href: "/dashboard/selfroles", label: "Self Roles", icon: Users },
+      { href: "/dashboard/starboard", label: "Starboard", icon: Activity },
+      { href: "/dashboard/worldboss", label: "World Boss", icon: Skull },
     ]
   },
   {

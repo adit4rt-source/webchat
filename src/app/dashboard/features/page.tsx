@@ -42,7 +42,7 @@ const CATEGORIES: Category[] = [
       { name: "Livestock", desc: "Raise and manage farm animals for products.", icon: PawPrint, usage: "/livestock" },
       { name: "Pets & Battle", desc: "Collect pets, abilities, fusion and awakening.", icon: PawPrint, href: "/dashboard/pets", usage: "/pet" },
       { name: "Arena (PvP)", desc: "Player-vs-player battles with rankings.", icon: Swords, usage: "/arena" },
-      { name: "World Boss", desc: "Server-wide co-op boss fights with shared loot.", icon: Skull, usage: "/worldboss" },
+      { name: "World Boss", desc: "Server-wide co-op boss fights with shared loot.", icon: Skull, href: "/dashboard/worldboss", usage: "/worldboss" },
       { name: "Dungeon Co-op", desc: "Team up to clear multi-stage dungeons.", icon: Swords, usage: "/dungeon" },
       { name: "Expedition", desc: "Send teams on timed expeditions for rewards.", icon: Globe, usage: "/expedition" },
       { name: "Casino", desc: "Blackjack, slots, roulette, RPS & horse racing.", icon: Gamepad2, href: "/dashboard/casino", usage: "/casino" },
@@ -50,9 +50,9 @@ const CATEGORIES: Category[] = [
       { name: "Auction House", desc: "Bid on rare items posted by other players.", icon: Coins, usage: "/auction" },
       { name: "Global Market & Trade", desc: "Cross-server marketplace and player trading.", icon: TrendingUp, usage: "/market /trade" },
       { name: "Daily Reward", desc: "Claimable daily coins and bonus rewards.", icon: Gift, usage: "/daily" },
-      { name: "Quests", desc: "Daily and weekly quests with milestone rewards.", icon: BookOpen, usage: "/quest" },
-      { name: "Achievements", desc: "Unlockable achievements across all systems.", icon: Trophy, usage: "/achievements" },
-      { name: "Titles", desc: "Earnable and equippable profile titles.", icon: Trophy, usage: "/titles" },
+      { name: "Quests", desc: "Daily and weekly quests with milestone rewards.", icon: BookOpen, href: "/dashboard/quests", usage: "/quest" },
+      { name: "Achievements", desc: "Unlockable achievements across all systems.", icon: Trophy, href: "/dashboard/achievements", usage: "/achievements" },
+      { name: "Titles", desc: "Earnable and equippable profile titles.", icon: Trophy, href: "/dashboard/titles", usage: "/titles" },
       { name: "Leaderboard", desc: "Top players by money, level, fish, farm & more.", icon: Trophy, href: "/dashboard/leaderboard", usage: "/leaderboard" },
     ],
   },
@@ -64,10 +64,10 @@ const CATEGORIES: Category[] = [
       { name: "Leveling / XP", desc: "Text & voice XP, level roles and rank cards.", icon: BarChart3, href: "/dashboard/leveling", usage: "/rank /level" },
       { name: "Daily Streak", desc: "Reward consecutive daily activity streaks.", icon: Flame, href: "/dashboard/streak", usage: "/streak" },
       { name: "Combo", desc: "Activity combo multipliers for bonus rewards.", icon: Zap, usage: "auto" },
-      { name: "Giveaways", desc: "Host timed giveaways with entry requirements.", icon: Gift, usage: "/giveaway" },
+      { name: "Giveaways", desc: "Host timed giveaways with entry requirements.", icon: Gift, href: "/dashboard/giveaways", usage: "/giveaway" },
       { name: "Contests", desc: "Run community contests with leaderboards.", icon: Trophy, usage: "/contest" },
       { name: "Invite Tracker", desc: "Track invites and reward top inviters.", icon: UserPlus, href: "/dashboard/invite", usage: "/invites" },
-      { name: "Starboard", desc: "Highlight top-reacted messages on a board.", icon: Trophy, usage: "react ⭐" },
+      { name: "Starboard", desc: "Highlight top-reacted messages on a board.", icon: Trophy, href: "/dashboard/starboard", usage: "react ⭐" },
       { name: "Calendar / Events", desc: "Schedule and announce server events.", icon: Clock, usage: "/calendar" },
       { name: "Reminders", desc: "Personal and server reminders.", icon: Bell, usage: "/remind" },
     ],
@@ -90,7 +90,7 @@ const CATEGORIES: Category[] = [
     color: "text-purple-400",
     features: [
       { name: "Welcomer", desc: "Custom welcome cards & goodbye messages.", icon: MessageSquare, href: "/dashboard/welcomer", usage: "on join" },
-      { name: "Self Roles", desc: "Reaction / button roles members assign themselves.", icon: Users, usage: "panel" },
+      { name: "Self Roles", desc: "Reaction / button roles members assign themselves.", icon: Users, href: "/dashboard/selfroles", usage: "panel" },
       { name: "Temp Voice", desc: "On-demand temporary voice channels.", icon: Mic, href: "/dashboard/tempvoice", usage: "join hub" },
       { name: "Social Interactions", desc: "Hug, pat and other social commands.", icon: MessageSquare, usage: "/hug etc." },
       { name: "Love / Marriage", desc: "Relationship and marriage system.", icon: Activity, usage: "/marry" },
@@ -182,7 +182,7 @@ export default function FeaturesPage() {
             {TOTAL_FEATURES} features
           </span>
           <span className="px-3 py-1.5 bg-green-500/10 border border-green-500/20 rounded-full text-xs text-green-400 font-medium">
-            {CONFIGURABLE} configurable here
+            {CONFIGURABLE} on dashboard
           </span>
         </div>
       </div>
@@ -247,7 +247,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
         </div>
         {configurable ? (
           <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
-            Configurable
+            Dashboard
           </span>
         ) : (
           <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-dark-600 text-gray-400 border border-dark-500">
