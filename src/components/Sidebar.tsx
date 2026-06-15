@@ -8,10 +8,9 @@ import {
   Mic, Gift, Wrench, BookOpen, Bot, Gamepad2, Search,
   ChevronDown, Globe, Skull, TrendingUp, Activity
 } from "lucide-react";
-import { styles } from "@/lib/styles";
+import { useState } from "react";
 import GuildSelector from "@/components/GuildSelector";
 import LangToggle from "@/components/LangToggle";
-import { useState } from "react";
 
 interface SidebarProps {
   user: { id: string; username: string; avatar: string; isAdmin: boolean; image?: string };

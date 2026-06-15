@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Flame, Search, Users, Trophy, ShieldCheck } from "lucide-react";
+import { Flame, Search, Trophy, ShieldCheck } from "lucide-react";
 import { styles } from "@/lib/styles";
 import UserCell from "@/components/UserCell";
 

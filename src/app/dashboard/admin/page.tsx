@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Shield, Coins, User, Package, RotateCcw, Database, PawPrint, Fish, Sprout, Flame, BarChart3, Trophy, Swords, Zap, Lock } from "lucide-react";
+import { Shield, Coins, User, Package, RotateCcw, Database, PawPrint, Fish, Sprout, Flame, BarChart3, Trophy, Zap, Lock } from "lucide-react";
 import { styles } from "@/lib/styles";
 import MemberSelector from "@/components/MemberSelector";
 import { useGuild } from "@/lib/GuildContext";

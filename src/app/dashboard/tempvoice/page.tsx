@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Mic, Save, Hash, Settings, Lock, Eye, EyeOff, UserX, Ban, Type, Users } from "lucide-react";
+import { Mic, Save, Hash, Settings, Lock, EyeOff, UserX, Ban, Type, Users } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
 import ChannelSelector from "@/components/ChannelSelector";

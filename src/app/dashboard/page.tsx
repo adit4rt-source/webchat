@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Users, Server, Fish, Sprout, PawPrint, Trophy, Clock, Coins, Activity, TrendingUp, Zap, Globe, BookOpen } from "lucide-react";
+import { Users, Fish, Sprout, PawPrint, Trophy, Coins, Activity, TrendingUp, Zap, BookOpen } from "lucide-react";
 import { styles } from "@/lib/styles";
 
 interface BotStats {
