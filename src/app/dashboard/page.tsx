@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Users, Server, Fish, Sprout, PawPrint, Trophy, Clock, Coins, Activity, TrendingUp, Zap, Globe } from "lucide-react";
+import { Users, Server, Fish, Sprout, PawPrint, Trophy, Clock, Coins, Activity, TrendingUp, Zap, Globe, BookOpen } from "lucide-react";
 import { styles } from "@/lib/styles";
 
 interface BotStats {
@@ -149,10 +149,10 @@ export default function DashboardPage() {
         <div className={`${styles.card} col-span-1 lg:col-span-2`}>
           <h3 className="text-sm font-medium text-gray-400 mb-4">Quick Actions</h3>
           <div className="grid grid-cols-2 gap-2">
+            <QuickAction href="/dashboard/features" icon={BookOpen} label="All Features" desc="Browse every bot system" />
             <QuickAction href="/dashboard/users" icon={Users} label="Lookup User" desc="Search player by ID" />
             <QuickAction href="/dashboard/leaderboard" icon={Trophy} label="Leaderboard" desc="View top players" />
             <QuickAction href="/dashboard/admin" icon={TrendingUp} label="Admin Panel" desc="Manage bot data" />
-            <QuickAction href="/dashboard/fishing" icon={Fish} label="Fishing Stats" desc="Fishing system data" />
           </div>
         </div>
       </div>

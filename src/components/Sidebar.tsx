@@ -22,6 +22,7 @@ const navSections = [
     title: null, // No title for top section
     items: [
       { href: "/dashboard", label: "Overview", icon: Home },
+      { href: "/dashboard/features", label: "Features", icon: BookOpen },
       { href: "/dashboard/general", label: "General", icon: Settings },
     ]
   },
