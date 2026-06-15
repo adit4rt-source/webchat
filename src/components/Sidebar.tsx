@@ -75,6 +75,7 @@ const navSections = [
     items: [
       { href: "/dashboard/leaderboard", label: "Leaderboard", icon: Trophy },
       { href: "/dashboard/users", label: "Users", icon: Users },
+      { href: "/dashboard/analytics", label: "Analytics", icon: BarChart3, adminOnly: true },
       { href: "/dashboard/admin", label: "Admin Panel", icon: Shield, adminOnly: true },
       { href: "/dashboard/tools", label: "Tools", icon: Wrench, adminOnly: true },
     ]

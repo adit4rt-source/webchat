@@ -121,6 +121,7 @@ const CATEGORIES: Category[] = [
     features: [
       { name: "Admin Panel", desc: "Edit balances, levels, items, pets & more.", icon: Shield, href: "/dashboard/admin", usage: "dashboard" },
       { name: "Server Stats", desc: "Live bot & server statistics overview.", icon: BarChart3, href: "/dashboard/stats", usage: "dashboard" },
+      { name: "Analytics", desc: "Weekly economy health, top players & activity hours.", icon: BarChart3, href: "/dashboard/analytics", usage: "dashboard" },
       { name: "User Lookup", desc: "Search and inspect any player by ID.", icon: Users, href: "/dashboard/users", usage: "dashboard" },
       { name: "General Settings", desc: "Core bot configuration & language.", icon: Settings, href: "/dashboard/general", usage: "dashboard" },
       { name: "Tools", desc: "Maintenance utilities & data reset.", icon: Wrench, href: "/dashboard/tools", usage: "dashboard" },
