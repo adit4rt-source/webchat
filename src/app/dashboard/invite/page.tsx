@@ -164,6 +164,11 @@ export default function InvitePage() {
                   <ChannelSelector value={settings.invite_channel || ''} onChange={v => update('invite_channel', v)} placeholder="Select a channel for invite logs" filter="text" />
                 </div>
                 <div>
+                  <label className="text-xs text-gray-500 block mb-1.5 flex items-center gap-1"><Hash size={12} /> Reward Announcement Channel</label>
+                  <ChannelSelector value={settings.invite_reward_channel || ''} onChange={v => update('invite_reward_channel', v)} placeholder="Defaults to Invite Log Channel" filter="text" />
+                  <p className="text-[10px] text-gray-600 mt-1">Where invite-reward (milestone) messages are posted. Leave empty to use the Invite Log Channel.</p>
+                </div>
+                <div>
                   <label className="text-xs text-gray-500 block mb-1.5">Fake Account Threshold (days)</label>
                   <input type="number" className={styles.inputDark} value={settings.invite_fake_threshold || '7'} onChange={e => update('invite_fake_threshold', e.target.value)} />
                   <p className="text-[10px] text-gray-600 mt-1">Accounts younger than this are marked as fake invites</p>
