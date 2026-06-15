@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { BarChart3, Fish, Sprout, PawPrint, Gamepad2, Command, Users, Coins, Trophy } from "lucide-react";
+import { BarChart3, Fish, Sprout, PawPrint, Gamepad2, Command, TrendingUp, Users, Coins, Trophy, Swords, Skull } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
 

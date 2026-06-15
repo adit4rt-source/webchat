@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { BarChart3, Search, Star, Settings } from "lucide-react";
+import { BarChart3, Search, Users, Star, Zap, Settings } from "lucide-react";
 import { styles } from "@/lib/styles";
 import UserCell from "@/components/UserCell";
 

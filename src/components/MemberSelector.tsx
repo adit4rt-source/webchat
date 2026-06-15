@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { ChevronDown, X, Search, User } from "lucide-react";
 import { useGuild } from "@/lib/GuildContext";
 

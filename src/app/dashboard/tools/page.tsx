@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Wrench, Database, Download, Terminal, AlertTriangle, CheckCircle, Lock } from "lucide-react";
+import { Wrench, Database, Download, RotateCcw, Terminal, AlertTriangle, CheckCircle, Lock } from "lucide-react";
 import { styles } from "@/lib/styles";
 import { useGuild } from "@/lib/GuildContext";
 import { useSession } from "next-auth/react";

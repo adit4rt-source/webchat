@@ -6,11 +6,12 @@ import {
   Home, Settings, Shield, LogOut, Trophy, Users, BarChart3,
   Fish, Sprout, PawPrint, Flame, UserPlus, MessageSquare,
   Mic, Gift, Wrench, BookOpen, Bot, Gamepad2, Search,
-  ChevronDown, Globe, Skull, TrendingUp, Activity
+  ChevronDown, Globe
 } from "lucide-react";
-import { useState } from "react";
+import { styles } from "@/lib/styles";
 import GuildSelector from "@/components/GuildSelector";
 import LangToggle from "@/components/LangToggle";
+import { useState } from "react";
 
 interface SidebarProps {
   user: { id: string; username: string; avatar: string; isAdmin: boolean; image?: string };
@@ -21,7 +22,6 @@ const navSections = [
     title: null, // No title for top section
     items: [
       { href: "/dashboard", label: "Overview", icon: Home },
-      { href: "/dashboard/features", label: "Features", icon: BookOpen },
       { href: "/dashboard/general", label: "General", icon: Settings },
     ]
   },
@@ -39,7 +39,6 @@ const navSections = [
       { href: "/dashboard/fishing", label: "Fishing", icon: Fish },
       { href: "/dashboard/farming", label: "Farming", icon: Sprout },
       { href: "/dashboard/pets", label: "Pets", icon: PawPrint },
-      { href: "/dashboard/pet-evolution", label: "Pet Evolution", icon: TrendingUp },
       { href: "/dashboard/casino", label: "Casino", icon: Gamepad2 },
     ]
   },
@@ -55,26 +54,8 @@ const navSections = [
   {
     title: null,
     items: [
-      { href: "/dashboard/achievements", label: "Achievements", icon: Trophy },
-      { href: "/dashboard/quests", label: "Quests", icon: BookOpen },
-      { href: "/dashboard/titles", label: "Titles", icon: TrendingUp },
-      { href: "/dashboard/giveaways", label: "Giveaways", icon: Gift },
-    ]
-  },
-  {
-    title: null,
-    items: [
-      { href: "/dashboard/selfroles", label: "Self Roles", icon: Users },
-      { href: "/dashboard/starboard", label: "Starboard", icon: Activity },
-      { href: "/dashboard/worldboss", label: "World Boss", icon: Skull },
-    ]
-  },
-  {
-    title: null,
-    items: [
       { href: "/dashboard/leaderboard", label: "Leaderboard", icon: Trophy },
       { href: "/dashboard/users", label: "Users", icon: Users },
-      { href: "/dashboard/analytics", label: "Analytics", icon: BarChart3, adminOnly: true },
       { href: "/dashboard/admin", label: "Admin Panel", icon: Shield, adminOnly: true },
       { href: "/dashboard/tools", label: "Tools", icon: Wrench, adminOnly: true },
     ]
