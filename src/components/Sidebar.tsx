@@ -40,6 +40,7 @@ const navSections = [
       { href: "/dashboard/fishing", label: "Fishing", icon: Fish },
       { href: "/dashboard/farming", label: "Farming", icon: Sprout },
       { href: "/dashboard/pets", label: "Pets", icon: PawPrint },
+      { href: "/dashboard/pet-evolution", label: "Pet Evolution", icon: TrendingUp },
       { href: "/dashboard/casino", label: "Casino", icon: Gamepad2 },
     ]
   },

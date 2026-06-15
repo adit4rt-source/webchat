@@ -41,6 +41,7 @@ const CATEGORIES: Category[] = [
       { name: "Farming", desc: "Plant, harvest, mutations, seasons, weather & auto-harvest.", icon: Sprout, href: "/dashboard/farming", usage: "/farm" },
       { name: "Livestock", desc: "Raise and manage farm animals for products.", icon: PawPrint, usage: "/livestock" },
       { name: "Pets & Battle", desc: "Collect pets, abilities, fusion and awakening.", icon: PawPrint, href: "/dashboard/pets", usage: "/pet" },
+      { name: "Pet Evolution", desc: "Evolution trees, fusion ladder & awakening tiers.", icon: PawPrint, href: "/dashboard/pet-evolution", usage: "/pet evolve" },
       { name: "Arena (PvP)", desc: "Player-vs-player battles with rankings.", icon: Swords, usage: "/arena" },
       { name: "World Boss", desc: "Server-wide co-op boss fights with shared loot.", icon: Skull, href: "/dashboard/worldboss", usage: "/worldboss" },
       { name: "Dungeon Co-op", desc: "Team up to clear multi-stage dungeons.", icon: Swords, usage: "/dungeon" },
